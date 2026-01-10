@@ -13,12 +13,22 @@ const OAUTH_HOSTS: &[&str] = &[
     "github.com",
 ];
 
+/// Checks if a host matches a domain (exact match or subdomain).
+///
+/// Examples:
+/// - `notion.so` matches `notion.so` ✓
+/// - `www.notion.so` matches `notion.so` ✓ (subdomain)
+/// - `evil-notion.so` does NOT match `notion.so` ✗
+fn host_matches_domain(host: &str, domain: &str) -> bool {
+    host == domain || host.ends_with(&format!(".{}", domain))
+}
+
 /// Checks if a URL should be opened externally.
 pub fn should_open_externally(url: &str) -> bool {
     if let Ok(parsed) = Url::parse(url) {
         if let Some(host) = parsed.host_str() {
             // Check if it's an allowed Notion domain
-            let is_notion = ALLOWED_HOSTS.iter().any(|h| host.ends_with(h));
+            let is_notion = ALLOWED_HOSTS.iter().any(|h| host_matches_domain(host, h));
             return !is_notion;
         }
     }
@@ -29,7 +39,7 @@ pub fn should_open_externally(url: &str) -> bool {
 pub fn is_oauth_url(url: &str) -> bool {
     if let Ok(parsed) = Url::parse(url) {
         if let Some(host) = parsed.host_str() {
-            return OAUTH_HOSTS.iter().any(|h| host.contains(h));
+            return OAUTH_HOSTS.iter().any(|h| host_matches_domain(host, h));
         }
     }
     false
