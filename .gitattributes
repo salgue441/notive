@@ -1,0 +1,47 @@
+# Auto detect text files and perform LF normalization
+* text=auto eol=lf
+
+# Explicitly declare text files
+*.rs text diff=rust
+*.toml text
+*.json text
+*.md text diff=markdown
+*.txt text
+*.yml text
+*.yaml text
+*.ts text
+*.js text
+*.html text
+*.css text
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Declare binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.icns binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+*.AppImage binary
+*.deb binary
+*.rpm binary
+*.flatpak binary
+*.snap binary
+
+# Prevent showing lock files in diffs
+pnpm-lock.yaml -diff
+Cargo.lock -diff
+
+# Linguist overrides
+*.rs linguist-language=Rust
+*.toml linguist-language=TOML
+src-tauri/** linguist-vendored=false
