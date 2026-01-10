@@ -3,15 +3,15 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to release (e.g., 1.0.0)'
+        description: "Version to release (e.g., 1.0.0)"
         required: true
         type: string
       draft:
-        description: 'Create as draft release'
+        description: "Create as draft release"
         required: false
         type: boolean
         default: true
@@ -90,8 +90,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
-          cache: 'pnpm'
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
@@ -149,8 +149,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
-          cache: 'pnpm'
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
@@ -266,7 +266,7 @@ jobs:
         uses: robinraju/release-downloader@v1
         with:
           tag: v${{ needs.prepare.outputs.version }}
-          fileName: '*.sig'
+          fileName: "*.sig"
           out-file-path: signatures
         continue-on-error: true
 
@@ -318,7 +318,8 @@ jobs:
   notify-failure:
     name: Notify on Failure
     runs-on: ubuntu-latest
-    needs: [build-linux-x64, build-linux-arm64, build-flatpak, build-snap]
+    needs:
+      [prepare, build-linux-x64, build-linux-arm64, build-flatpak, build-snap]
     if: failure()
     steps:
       - name: Create issue on failure
