@@ -273,6 +273,13 @@ jobs:
       - name: Generate latest.json
         run: |
           VERSION="${{ needs.prepare.outputs.version }}"
+          SIG_FILE="signatures/notive_${VERSION}_amd64.AppImage.sig"
+          if [ -f "$SIG_FILE" ]; then
+            # Read signature file and escape for JSON
+            SIGNATURE=$(cat "$SIG_FILE" | jq -Rs .)
+          else
+            SIGNATURE="\"\""
+          fi
           cat << EOF > latest.json
           {
             "version": "${VERSION}",
@@ -280,7 +287,7 @@ jobs:
             "pub_date": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
             "platforms": {
               "linux-x86_64": {
-                "signature": "",
+                "signature": ${SIGNATURE},
                 "url": "https://github.com/${{ github.repository }}/releases/download/v${VERSION}/notive_${VERSION}_amd64.AppImage"
               }
             }
