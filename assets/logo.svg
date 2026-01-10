@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Background circle -->
+  <circle cx="60" cy="60" r="56" fill="#191919" stroke="#2eaadc" stroke-width="2"/>
+
+  <!-- Letter N stylized -->
+  <path d="M35 85V35h10l30 35V35h10v50H75L45 50v35H35z" fill="#ffffff"/>
+
+  <!-- Accent dot -->
+  <circle cx="92" cy="32" r="6" fill="#2eaadc"/>
+</svg>
