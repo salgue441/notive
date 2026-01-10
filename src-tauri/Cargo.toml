@@ -1,0 +1,80 @@
+[package]
+name = "notive"
+version = "1.0.0"
+description = "A high-performance Notion desktop wrapper for Linux"
+authors = ["Carlos Salguero"]
+license = "MIT"
+repository = "https://github.com/YOUR_USERNAME/notive"
+edition = "2021"
+rust-version = "1.77.2"
+
+[lib]
+name = "notive_lib"
+crate-type = ["staticlib", "cdylib", "lib"]
+
+[build-dependencies]
+tauri-build = { version = "2.0", features = [] }
+
+[dependencies]
+# Core Tauri
+tauri = { version = "2.9", features = [
+    "tray-icon",
+    "image-png",
+    "image-ico",
+] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Async runtime
+tokio = { version = "1.43", features = ["rt", "rt-multi-thread", "sync", "fs", "time", "macros"] }
+
+# Official Tauri plugins
+tauri-plugin-store = "2.4"
+tauri-plugin-notification = "2.4"
+tauri-plugin-autostart = "2.4"
+tauri-plugin-global-shortcut = "2.4"
+tauri-plugin-updater = "2.6"
+tauri-plugin-dialog = "2.4"
+tauri-plugin-fs = "2.4"
+tauri-plugin-shell = "2.4"
+tauri-plugin-os = "2.4"
+tauri-plugin-process = "2.4"
+tauri-plugin-http = "2.4"
+
+# Logging
+log = "0.4"
+env_logger = "0.11"
+
+# Utilities
+url = "2.5"
+dirs = "5.0"
+chrono = { version = "0.4", features = ["serde"] }
+thiserror = "2.0"
+anyhow = "1.0"
+
+# Security - secure credential storage
+keyring = "3.6"
+
+[features]
+default = ["custom-protocol"]
+custom-protocol = ["tauri/custom-protocol"]
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+opt-level = "z"
+strip = true
+
+[profile.dev]
+incremental = true
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+all = "warn"
+pedantic = "warn"
+nursery = "warn"

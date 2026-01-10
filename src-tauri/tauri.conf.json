@@ -1,0 +1,114 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Notive",
+  "identifier": "io.github.notive",
+  "version": "1.0.0",
+  "build": {
+    "beforeBuildCommand": "pnpm run build",
+    "beforeDevCommand": "pnpm run dev",
+    "devUrl": "http://localhost:1420",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "security": {
+      "csp": {
+        "default-src": "'self' https://www.notion.so https://*.notion.so https://*.notion-static.com",
+        "script-src": "'self' 'unsafe-inline' 'unsafe-eval' https://www.notion.so https://*.notion.so https://*.notion-static.com https://*.cloudflare.com",
+        "style-src": "'self' 'unsafe-inline' https://www.notion.so https://*.notion.so https://*.notion-static.com https://fonts.googleapis.com",
+        "img-src": "'self' data: blob: https: http:",
+        "connect-src": "'self' https: wss: ws:",
+        "font-src": "'self' data: https://*.notion-static.com https://fonts.gstatic.com",
+        "media-src": "'self' blob: https:",
+        "frame-src": "'self' https://www.notion.so https://*.notion.so https://accounts.google.com https://appleid.apple.com https://login.microsoftonline.com https://github.com",
+        "frame-ancestors": "'none'",
+        "form-action": "'self' https://www.notion.so https://*.notion.so",
+        "base-uri": "'self'",
+        "object-src": "'none'",
+        "worker-src": "'self' blob:"
+      },
+      "dangerousDisableAssetCspModification": false,
+      "freezePrototype": true
+    },
+    "windows": [
+      {
+        "title": "Notive",
+        "label": "main",
+        "url": "https://www.notion.so",
+        "width": 1200,
+        "height": 800,
+        "minWidth": 800,
+        "minHeight": 600,
+        "resizable": true,
+        "fullscreen": false,
+        "decorations": true,
+        "transparent": false,
+        "center": true,
+        "visible": true,
+        "focus": true,
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+      }
+    ],
+    "trayIcon": {
+      "iconPath": "icons/icon.png",
+      "iconAsTemplate": true,
+      "menuOnLeftClick": false,
+      "title": "Notive"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["deb", "rpm", "appimage"],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "resources": [],
+    "copyright": "Copyright (c) 2025 Notive Contributors",
+    "category": "Office",
+    "shortDescription": "Notion desktop wrapper for Linux",
+    "longDescription": "A high-performance, native Notion desktop wrapper for Linux built with Tauri and Rust. Features system tray integration, native notifications, global keyboard shortcuts, and automatic updates.",
+    "linux": {
+      "appId": "io.github.notive.Notive",
+      "deb": {
+        "depends": [
+          "libwebkit2gtk-4.1-0",
+          "libgtk-3-0",
+          "libayatana-appindicator3-1"
+        ],
+        "section": "utils",
+        "priority": "optional"
+      },
+      "rpm": {
+        "depends": [
+          "webkit2gtk4.1",
+          "gtk3",
+          "libayatana-appindicator-gtk3"
+        ],
+        "release": "1"
+      }
+    },
+    "createUpdaterArtifacts": true
+  },
+  "plugins": {
+    "updater": {
+      "endpoints": [
+        "https://github.com/YOUR_USERNAME/notive/releases/latest/download/latest.json"
+      ],
+      "pubkey": "YOUR_PUBLIC_KEY_HERE"
+    },
+    "shell": {
+      "open": true,
+      "scope": [
+        {
+          "name": "open-url",
+          "cmd": "xdg-open",
+          "args": true
+        }
+      ]
+    }
+  }
+}
