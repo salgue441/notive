@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Validate commit message format (Conventional Commits)
+commit_regex='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z-]+\))?!?: .{1,72}$'
+
+if ! grep -qE "$commit_regex" "$1"; then
+    echo "Error: Commit message does not follow Conventional Commits format."
+    echo ""
+    echo "Valid formats:"
+    echo "  feat: add new feature"
+    echo "  fix(tray): resolve icon not showing"
+    echo "  docs: update README"
+    echo "  refactor(config): simplify settings handling"
+    echo ""
+    echo "Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert"
+    exit 1
+fi
