@@ -65,7 +65,7 @@ jobs:
           tag_name: v${{ steps.version.outputs.version }}
           name: Notive v${{ steps.version.outputs.version }}
           body: ${{ steps.changelog.outputs.content || 'Release notes will be added manually.' }}
-          draft: ${{ inputs.draft || true }}
+          draft: ${{ inputs.draft }}
           prerelease: false
           generate_release_notes: true
         env:
