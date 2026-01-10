@@ -1,0 +1,100 @@
+services:
+  # ===========================================
+  # Build all package formats
+  # ===========================================
+  build:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: builder
+    volumes:
+      - ../dist:/output:rw
+    command: >
+      bash -c "
+        mkdir -p /output &&
+        cp -r src-tauri/target/release/bundle/deb/*.deb /output/ 2>/dev/null || true &&
+        cp -r src-tauri/target/release/bundle/rpm/*.rpm /output/ 2>/dev/null || true &&
+        cp -r src-tauri/target/release/bundle/appimage/*.AppImage /output/ 2>/dev/null || true &&
+        echo 'Build complete! Artifacts in ./dist/'
+      "
+
+  # ===========================================
+  # Build .deb package only
+  # ===========================================
+  build-deb:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: builder
+    volumes:
+      - ../dist:/output:rw
+    command: >
+      bash -c "
+        pnpm tauri build --bundles deb &&
+        mkdir -p /output &&
+        cp src-tauri/target/release/bundle/deb/*.deb /output/ &&
+        echo 'DEB package built successfully!'
+      "
+
+  # ===========================================
+  # Build .rpm package only
+  # ===========================================
+  build-rpm:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: builder
+    volumes:
+      - ../dist:/output:rw
+    command: >
+      bash -c "
+        pnpm tauri build --bundles rpm &&
+        mkdir -p /output &&
+        cp src-tauri/target/release/bundle/rpm/*.rpm /output/ &&
+        echo 'RPM package built successfully!'
+      "
+
+  # ===========================================
+  # Build AppImage only
+  # ===========================================
+  build-appimage:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: builder
+    volumes:
+      - ../dist:/output:rw
+    command: >
+      bash -c "
+        pnpm tauri build --bundles appimage &&
+        mkdir -p /output &&
+        cp src-tauri/target/release/bundle/appimage/*.AppImage /output/ &&
+        echo 'AppImage built successfully!'
+      "
+
+  # ===========================================
+  # Development environment
+  # ===========================================
+  dev:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: dev
+    volumes:
+      - ..:/app:rw
+      - cargo-cache:/usr/local/cargo/registry
+      - target-cache:/app/src-tauri/target
+    working_dir: /app
+    stdin_open: true
+    tty: true
+    environment:
+      - DISPLAY=${DISPLAY:-:0}
+      - WAYLAND_DISPLAY=${WAYLAND_DISPLAY:-}
+    # Uncomment for GUI testing (requires X11 forwarding)
+    # network_mode: host
+    # volumes:
+    #   - /tmp/.X11-unix:/tmp/.X11-unix:ro
+
+volumes:
+  cargo-cache:
+  target-cache:

@@ -1,0 +1,28 @@
+# Git
+.git
+.gitignore
+
+# Build artifacts
+target/
+dist/
+node_modules/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.*
+
+# Docker
+docker/volumes/
