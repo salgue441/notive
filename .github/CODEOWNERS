@@ -1,0 +1,15 @@
+# Default owners for everything in the repo
+* @YOUR_USERNAME
+
+# Rust/Tauri backend
+/src-tauri/ @YOUR_USERNAME
+
+# Frontend
+/src/ @YOUR_USERNAME
+
+# CI/CD
+/.github/workflows/ @YOUR_USERNAME
+
+# Documentation
+*.md @YOUR_USERNAME
+/docs/ @YOUR_USERNAME
