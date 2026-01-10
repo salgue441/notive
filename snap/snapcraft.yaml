@@ -98,7 +98,7 @@ parts:
       # Install desktop file
       mkdir -p "$CRAFT_PART_INSTALL/share/applications"
       cp flatpak/io.github.notive.Notive.desktop "$CRAFT_PART_INSTALL/share/applications/notive.desktop"
-      sed -i 's/Exec=notive/Exec=notive/' "$CRAFT_PART_INSTALL/share/applications/notive.desktop"
+      sed -i 's/Exec=notive %u/Exec=notive/' "$CRAFT_PART_INSTALL/share/applications/notive.desktop"
       sed -i 's/Icon=io.github.notive.Notive/Icon=notive/' "$CRAFT_PART_INSTALL/share/applications/notive.desktop"
 
       # Install icons
