@@ -1,0 +1,114 @@
+name: notive
+version: "1.0.0"
+summary: Notion desktop wrapper for Linux
+description: |
+  Notive is a high-performance, native Notion desktop wrapper for Linux
+  built with Tauri and Rust.
+
+  Features:
+  - System tray integration with quick access menu
+  - Native desktop notifications
+  - Global keyboard shortcuts
+  - Auto-start on login
+  - Automatic updates
+  - Minimal resource usage (~15MB)
+
+  This is an unofficial wrapper. Notion is a trademark of Notion Labs, Inc.
+
+base: core24
+grade: stable
+confinement: strict
+compression: lzo
+
+architectures:
+  - build-on: amd64
+  - build-on: arm64
+
+apps:
+  notive:
+    command: bin/notive
+    extensions:
+      - gnome
+    plugs:
+      - home
+      - network
+      - network-bind
+      - audio-playback
+      - desktop
+      - desktop-legacy
+      - wayland
+      - x11
+      - opengl
+      - browser-support
+      - password-manager-service
+      - unity7
+    environment:
+      WEBKIT_DISABLE_COMPOSITING_MODE: "1"
+
+parts:
+  rustup:
+    plugin: nil
+    build-packages:
+      - curl
+    override-build: |
+      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable
+      echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> "$CRAFT_PART_INSTALL/.bashrc"
+
+  nodejs:
+    plugin: nil
+    build-packages:
+      - curl
+    override-build: |
+      curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+      apt-get install -y nodejs
+      npm install -g pnpm
+
+  notive:
+    after: [rustup, nodejs]
+    plugin: nil
+    source: .
+    build-packages:
+      - libwebkit2gtk-4.1-dev
+      - libgtk-3-dev
+      - libayatana-appindicator3-dev
+      - librsvg2-dev
+      - libssl-dev
+      - libsoup-3.0-dev
+      - build-essential
+      - pkg-config
+      - patchelf
+    stage-packages:
+      - libwebkit2gtk-4.1-0
+      - libgtk-3-0
+      - libayatana-appindicator3-1
+      - librsvg2-2
+      - libsoup-3.0-0
+    override-build: |
+      # Setup Rust
+      export PATH="$HOME/.cargo/bin:$PATH"
+
+      # Install dependencies and build
+      pnpm install --frozen-lockfile
+      pnpm tauri build --bundles none
+
+      # Install binary
+      mkdir -p "$CRAFT_PART_INSTALL/bin"
+      cp src-tauri/target/release/notive "$CRAFT_PART_INSTALL/bin/"
+
+      # Install desktop file
+      mkdir -p "$CRAFT_PART_INSTALL/share/applications"
+      cp flatpak/io.github.notive.Notive.desktop "$CRAFT_PART_INSTALL/share/applications/notive.desktop"
+      sed -i 's/Exec=notive/Exec=notive/' "$CRAFT_PART_INSTALL/share/applications/notive.desktop"
+      sed -i 's/Icon=io.github.notive.Notive/Icon=notive/' "$CRAFT_PART_INSTALL/share/applications/notive.desktop"
+
+      # Install icons
+      mkdir -p "$CRAFT_PART_INSTALL/share/icons/hicolor/32x32/apps"
+      mkdir -p "$CRAFT_PART_INSTALL/share/icons/hicolor/128x128/apps"
+      mkdir -p "$CRAFT_PART_INSTALL/share/icons/hicolor/256x256/apps"
+      cp src-tauri/icons/32x32.png "$CRAFT_PART_INSTALL/share/icons/hicolor/32x32/apps/notive.png"
+      cp src-tauri/icons/128x128.png "$CRAFT_PART_INSTALL/share/icons/hicolor/128x128/apps/notive.png"
+      cp src-tauri/icons/128x128@2x.png "$CRAFT_PART_INSTALL/share/icons/hicolor/256x256/apps/notive.png"
+
+layout:
+  /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/webkit2gtk-4.1:
+    bind: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/webkit2gtk-4.1
