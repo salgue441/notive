@@ -20,7 +20,11 @@ use tauri::Manager;
 ///
 /// This function initializes all plugins, sets up the application state,
 /// and starts the Tauri runtime.
-pub fn run() {
+///
+/// # Arguments
+///
+/// * `start_minimized` - If true, the window will be hidden to tray on startup.
+pub fn run(start_minimized: bool) {
     env_logger::init();
 
     tauri::Builder::default()
@@ -40,7 +44,7 @@ pub fn run() {
         .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_http::init())
         // Setup
-        .setup(|app| {
+        .setup(move |app| {
             log::info!("Setting up Notive...");
 
             // Initialize application state
@@ -51,6 +55,14 @@ pub fn run() {
 
             // Register global shortcuts
             shortcuts::register(app)?;
+
+            // Hide window to tray if --minimized flag was passed
+            if start_minimized {
+                if let Some(window) = app.get_webview_window("main") {
+                    let _ = window.hide();
+                    log::info!("Started minimized to tray");
+                }
+            }
 
             // Setup auto-updater (background check)
             let handle = app.handle().clone();

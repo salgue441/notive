@@ -2,5 +2,6 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 fn main() {
-    notive_lib::run();
+    let start_minimized = std::env::args().any(|arg| arg == "--minimized");
+    notive_lib::run(start_minimized);
 }
