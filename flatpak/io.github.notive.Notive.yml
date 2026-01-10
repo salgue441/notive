@@ -1,0 +1,74 @@
+id: io.github.notive.Notive
+runtime: org.gnome.Platform
+runtime-version: "47"
+sdk: org.gnome.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.rust-stable
+  - org.freedesktop.Sdk.Extension.node22
+command: notive
+
+finish-args:
+  # Display access
+  - --share=ipc
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --device=dri
+
+  # Network access (required for Notion)
+  - --share=network
+
+  # Audio (for notification sounds)
+  - --socket=pulseaudio
+
+  # Desktop integration
+  - --talk-name=org.freedesktop.Notifications
+  - --talk-name=org.kde.StatusNotifierWatcher
+  - --talk-name=org.freedesktop.secrets
+  - --talk-name=org.gnome.SessionManager
+
+  # File access
+  - --filesystem=xdg-download:rw
+  - --filesystem=xdg-documents:ro
+
+  # WebKitGTK requirements
+  - --env=WEBKIT_DISABLE_DMABUF_RENDERER=1
+
+build-options:
+  append-path: /usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/node22/bin
+  env:
+    CARGO_HOME: /run/build/notive/cargo
+    npm_config_nodedir: /usr/lib/sdk/node22
+
+modules:
+  - name: notive
+    buildsystem: simple
+    build-options:
+      env:
+        CARGO_HOME: /run/build/notive/cargo
+    build-commands:
+      # Install pnpm
+      - npm install -g pnpm
+
+      # Install frontend dependencies
+      - pnpm install --frozen-lockfile
+
+      # Build the application
+      - pnpm tauri build --bundles none
+
+      # Install binary
+      - install -Dm755 src-tauri/target/release/notive /app/bin/notive
+
+      # Install desktop file
+      - install -Dm644 flatpak/io.github.notive.Notive.desktop /app/share/applications/io.github.notive.Notive.desktop
+
+      # Install icons
+      - install -Dm644 src-tauri/icons/32x32.png /app/share/icons/hicolor/32x32/apps/io.github.notive.Notive.png
+      - install -Dm644 src-tauri/icons/128x128.png /app/share/icons/hicolor/128x128/apps/io.github.notive.Notive.png
+      - install -Dm644 src-tauri/icons/128x128@2x.png /app/share/icons/hicolor/256x256/apps/io.github.notive.Notive.png
+
+      # Install metainfo
+      - install -Dm644 flatpak/io.github.notive.Notive.metainfo.xml /app/share/metainfo/io.github.notive.Notive.metainfo.xml
+
+    sources:
+      - type: dir
+        path: ..

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.notive.Notive</id>
+
+  <name>Notive</name>
+  <summary>Notion desktop wrapper for Linux</summary>
+
+  <metadata_license>MIT</metadata_license>
+  <project_license>MIT</project_license>
+
+  <description>
+    <p>
+      Notive is a high-performance, native Notion desktop wrapper for Linux built
+      with Tauri and Rust. It provides a seamless desktop experience with features
+      that the web app lacks.
+    </p>
+    <p>Features include:</p>
+    <ul>
+      <li>System tray integration with quick access menu</li>
+      <li>Native desktop notifications</li>
+      <li>Global keyboard shortcuts</li>
+      <li>Auto-start on login</li>
+      <li>Automatic updates</li>
+      <li>Minimal resource usage (~15MB vs 150MB+ for Electron alternatives)</li>
+    </ul>
+  </description>
+
+  <launchable type="desktop-id">io.github.notive.Notive.desktop</launchable>
+
+  <url type="homepage">https://github.com/YOUR_USERNAME/notive</url>
+  <url type="bugtracker">https://github.com/YOUR_USERNAME/notive/issues</url>
+  <url type="vcs-browser">https://github.com/YOUR_USERNAME/notive</url>
+
+  <developer id="io.github.notive">
+    <name>Notive Contributors</name>
+  </developer>
+
+  <branding>
+    <color type="primary" scheme_preference="light">#ffffff</color>
+    <color type="primary" scheme_preference="dark">#191919</color>
+  </branding>
+
+  <screenshots>
+    <screenshot type="default">
+      <caption>Notive main window</caption>
+      <image>https://raw.githubusercontent.com/YOUR_USERNAME/notive/main/assets/screenshot.png</image>
+    </screenshot>
+  </screenshots>
+
+  <content_rating type="oars-1.1" />
+
+  <releases>
+    <release version="1.0.0" date="2025-01-01">
+      <description>
+        <p>Initial release of Notive</p>
+        <ul>
+          <li>System tray integration</li>
+          <li>Native notifications</li>
+          <li>Global keyboard shortcuts</li>
+          <li>Auto-start support</li>
+          <li>Automatic updates</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+  </supports>
+
+  <requires>
+    <display_length compare="ge">768</display_length>
+    <internet>always</internet>
+  </requires>
+
+  <categories>
+    <category>Office</category>
+    <category>Utility</category>
+  </categories>
+
+  <keywords>
+    <keyword>notion</keyword>
+    <keyword>notes</keyword>
+    <keyword>productivity</keyword>
+    <keyword>workspace</keyword>
+    <keyword>wiki</keyword>
+  </keywords>
+</component>
