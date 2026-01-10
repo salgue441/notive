@@ -6,7 +6,7 @@ set -e
 pnpm lint-staged
 
 # Run Rust formatting check
-cd src-tauri && cargo fmt --check
+(cd src-tauri && cargo fmt --check)
 
 # Run Rust clippy
-cd src-tauri && cargo clippy --all-targets --all-features -- -D warnings
+(cd src-tauri && cargo clippy --all-targets --all-features -- -D warnings)
