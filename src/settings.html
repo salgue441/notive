@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notive Settings</title>
+    <link rel="stylesheet" href="styles/settings.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div class="settings-container">
+        <h1>Notive Settings</h1>
+        
+        <div class="settings-section">
+          <h2>Window Behavior</h2>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="start-minimized" />
+              Start minimized to tray
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="minimize-to-tray" />
+              Minimize to tray
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="close-to-tray" />
+              Close to tray
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h2>Appearance</h2>
+          <div class="setting-item">
+            <label>
+              Theme:
+              <select id="theme">
+                <option value="system">System</option>
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+              </select>
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              Zoom Level:
+              <input type="range" id="zoom-level" min="0.5" max="2.0" step="0.1" value="1.0" />
+              <span id="zoom-value">100%</span>
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="custom-css-enabled" />
+              Enable custom CSS
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              Custom CSS:
+              <textarea id="custom-css" rows="10" placeholder="Enter your custom CSS here..."></textarea>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h2>Notifications</h2>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="notifications-enabled" />
+              Enable notifications
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="notification-sound" />
+              Notification sound
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h2>Keyboard Shortcuts</h2>
+          <div class="setting-item">
+            <label>
+              Toggle Window:
+              <input type="text" id="shortcut-toggle-window" class="shortcut-input" placeholder="Ctrl+Shift+N" />
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              Quick Capture:
+              <input type="text" id="shortcut-quick-capture" class="shortcut-input" placeholder="Ctrl+Shift+C" />
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              Reload Page:
+              <input type="text" id="shortcut-reload" class="shortcut-input" placeholder="Ctrl+R" />
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              Zoom In:
+              <input type="text" id="shortcut-zoom-in" class="shortcut-input" placeholder="Ctrl+=" />
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              Zoom Out:
+              <input type="text" id="shortcut-zoom-out" class="shortcut-input" placeholder="Ctrl+-" />
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              Reset Zoom:
+              <input type="text" id="shortcut-zoom-reset" class="shortcut-input" placeholder="Ctrl+0" />
+            </label>
+          </div>
+          <p class="setting-hint">Note: Shortcut changes require restarting the application to take effect.</p>
+        </div>
+
+        <div class="settings-section">
+          <h2>Updates</h2>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="auto-update" />
+              Auto-update
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              Update Channel:
+              <select id="update-channel">
+                <option value="stable">Stable</option>
+                <option value="beta">Beta</option>
+                <option value="nightly">Nightly</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h2>System</h2>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="autostart-enabled" />
+              Start with system
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="hardware-acceleration" />
+              Hardware acceleration
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="spellcheck" />
+              Spellcheck
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h2>Privacy & Security</h2>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="privacy-mode-enabled" />
+              Enable privacy mode
+            </label>
+            <p class="setting-hint">When enabled, clears wrapper data (history, bookmarks) on close</p>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="clear-history-on-close" />
+              Clear history on close
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="clear-cookies-on-close" />
+              Clear cookies on close
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="no-history-tracking" />
+              Disable history tracking
+            </label>
+          </div>
+          <div class="setting-item">
+            <button id="clear-privacy-data-btn" class="btn btn-secondary">Clear All Privacy Data Now</button>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h2>Quick Capture</h2>
+          <div class="setting-item">
+            <label>
+              Default Template:
+              <select id="quick-capture-default-template">
+                <option value="">None (use default)</option>
+              </select>
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="quick-capture-enable-tags" />
+              Enable tag support
+            </label>
+          </div>
+          <div class="setting-item">
+            <h3 style="margin-top: 1rem; margin-bottom: 0.5rem; font-size: 1rem;">Templates</h3>
+            <div id="quick-capture-templates-list" class="templates-list"></div>
+            <button id="add-template-btn" class="btn btn-secondary" style="margin-top: 0.5rem;">Add Template</button>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h2>Notification Customization</h2>
+          <div class="setting-item">
+            <label>
+              Default Sound:
+              <select id="notification-default-sound">
+                <option value="None">None</option>
+                <option value="Default">Default</option>
+                <option value="Custom">Custom</option>
+              </select>
+            </label>
+          </div>
+          <div class="setting-item" id="notification-custom-sound-item" style="display: none;">
+            <label>
+              Custom Sound File:
+              <input type="text" id="notification-custom-sound-path" placeholder="/path/to/sound.wav" />
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="notification-enable-scheduling" />
+              Enable quiet hours
+            </label>
+          </div>
+          <div class="setting-item" id="quiet-hours-item" style="display: none;">
+            <label>
+              Quiet Hours Start:
+              <input type="time" id="quiet-hours-start" />
+            </label>
+            <label style="margin-left: 1rem;">
+              End:
+              <input type="time" id="quiet-hours-end" />
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h2>Sidebar</h2>
+          <div class="setting-item">
+            <label>
+              Sidebar Width:
+              <input type="range" id="sidebar-width" min="200" max="400" step="10" value="280" />
+              <span id="sidebar-width-value">280px</span>
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="sidebar-auto-collapse" />
+              Auto-collapse when window is narrow
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h2>Data Management</h2>
+          <div class="setting-item">
+            <button id="export-settings-btn" class="btn btn-secondary">Export Settings</button>
+            <button id="import-settings-btn" class="btn btn-secondary">Import Settings</button>
+          </div>
+        </div>
+
+        <div class="settings-actions">
+          <button id="save-btn" class="btn btn-primary">Save</button>
+          <button id="cancel-btn" class="btn btn-secondary">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="settings.ts"></script>
+  </body>
+</html>

@@ -2,6 +2,12 @@
 //!
 //! This module contains all Tauri commands that can be invoked from the frontend.
 
+pub mod app;
+pub mod downloads;
+pub mod sync;
 pub mod notifications;
 pub mod settings;
 pub mod window;
+
+#[cfg(test)]
+mod tests;

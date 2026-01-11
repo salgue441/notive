@@ -1,0 +1,149 @@
+/* Tab bar styles */
+
+.tab-bar {
+  display: flex;
+  align-items: center;
+  background: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+  height: 40px;
+  padding: 0 8px;
+  user-select: none;
+}
+
+.tab-list {
+  display: flex;
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 2px;
+}
+
+.tab-list::-webkit-scrollbar {
+  height: 4px;
+}
+
+.tab-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tab-list::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 2px;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  cursor: pointer;
+  min-width: 120px;
+  max-width: 240px;
+  transition: background-color 0.2s;
+}
+
+.tab:hover {
+  background: #f9f9f9;
+}
+
+.tab.active {
+  background: #ffffff;
+  border-bottom: 2px solid #3498db;
+  font-weight: 500;
+}
+
+.tab-title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  color: #333;
+}
+
+.tab.active .tab-title {
+  color: #3498db;
+}
+
+.tab-close {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  padding: 0;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.tab-close:hover {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.tab-new {
+  background: #3498db;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  margin-left: 4px;
+}
+
+.tab-new:hover {
+  background: #2980b9;
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+  .tab-bar {
+    background: #2c2c2c;
+    border-bottom-color: #404040;
+  }
+
+  .tab {
+    background: #3a3a3a;
+    border-color: #404040;
+    color: #ffffff;
+  }
+
+  .tab:hover {
+    background: #404040;
+  }
+
+  .tab.active {
+    background: #3a3a3a;
+    border-bottom-color: #3498db;
+  }
+
+  .tab-title {
+    color: #ffffff;
+  }
+
+  .tab.active .tab-title {
+    color: #3498db;
+  }
+
+  .tab-close {
+    color: #999;
+  }
+
+  .tab-close:hover {
+    background: #505050;
+    color: #ffffff;
+  }
+}

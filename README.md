@@ -305,12 +305,29 @@ If you discover a security vulnerability, please see our [Security Policy](SECUR
 
 ## Roadmap
 
-- [ ] Custom CSS/themes support
-- [ ] Multiple workspaces
-- [ ] Offline indicator
-- [ ] Tab support
-- [ ] Integration with system calendar
-- [ ] Wayland native support improvements
+### ✅ Completed Features
+
+- [x] Custom CSS/themes support
+- [x] Multiple workspaces
+- [x] Offline indicator
+- [x] Tab support
+- [x] Integration with system calendar
+- [x] Wayland native support improvements
+- [x] Multi-account OAuth support
+- [x] Shortcut customization UI
+- [x] Periodic update checks
+- [x] Enhanced download manager
+- [x] Tray notification badges
+
+### 🔮 Future Features
+
+See [FUTURE_FEATURES.md](FUTURE_FEATURES.md) for a comprehensive list of potential enhancements including:
+- Theme support (dark/light mode)
+- Bookmarks and favorites
+- Search integration
+- Plugin system
+- Mobile companion app
+- And many more...
 
 See the [open issues](https://github.com/YOUR_USERNAME/notive/issues) for a full list of proposed features and known issues.
 

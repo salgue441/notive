@@ -3,6 +3,9 @@
 use tauri::{AppHandle, Runtime};
 use tauri_plugin_autostart::ManagerExt;
 
+#[cfg(test)]
+mod tests;
+
 /// Enables autostart.
 pub fn enable<R: Runtime>(app: &AppHandle<R>) -> Result<(), String> {
     app.autolaunch()

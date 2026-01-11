@@ -1,5 +1,9 @@
 //! Notification commands.
 
+#[cfg(test)]
+mod tests;
+
+use crate::tray;
 use tauri::{AppHandle, Runtime};
 use tauri_plugin_notification::NotificationExt;
 
@@ -17,7 +21,6 @@ pub async fn show_notification<R: Runtime>(
     app: AppHandle<R>,
     payload: NotificationPayload,
 ) -> Result<(), String> {
-    // TODO: Implement native notification
     log::debug!("Showing notification: {}", payload.title);
 
     let mut builder = app.notification().builder().title(&payload.title);
@@ -26,5 +29,8 @@ pub async fn show_notification<R: Runtime>(
         builder = builder.body(body);
     }
 
+    // Increment unread count when notification is shown
+    tray::increment_unread_count(&app);
+    
     builder.show().map_err(|e| e.to_string())
 }

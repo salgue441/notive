@@ -82,16 +82,27 @@ fn handle_menu_event<R: Runtime>(app: &tauri::AppHandle<R>, id: &str) {
             }
         }
         "settings" => {
-            // TODO: Open settings window/dialog
             log::debug!("Settings requested");
+            let app_handle = app.clone();
+            tauri::async_runtime::spawn(async move {
+                if let Err(e) = crate::commands::settings::open_settings_window(app_handle).await {
+                    log::error!("Failed to open settings window: {}", e);
+                }
+            });
         }
         "check_updates" => {
-            // TODO: Trigger update check
             log::debug!("Update check requested");
+            let app_handle = app.clone();
+            tauri::async_runtime::spawn(async move {
+                let _ = crate::commands::app::check_updates(app_handle).await;
+            });
         }
         "about" => {
-            // TODO: Show about dialog
             log::debug!("About requested");
+            let app_handle = app.clone();
+            tauri::async_runtime::spawn(async move {
+                let _ = crate::commands::app::show_about(app_handle).await;
+            });
         }
         _ => {}
     }

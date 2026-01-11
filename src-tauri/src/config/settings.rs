@@ -15,6 +15,7 @@ pub struct UserSettings {
     pub zoom_level: f64,
     pub custom_css_enabled: bool,
     pub custom_css: String,
+    pub theme: Theme,
 
     // Notifications
     pub notifications_enabled: bool,
@@ -44,6 +45,7 @@ impl Default for UserSettings {
             zoom_level: 1.0,
             custom_css_enabled: false,
             custom_css: String::new(),
+            theme: Theme::System,
             notifications_enabled: true,
             notification_sound: true,
             shortcuts: ShortcutSettings::default(),
@@ -57,7 +59,7 @@ impl Default for UserSettings {
 }
 
 /// Keyboard shortcut settings.
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(default)]
 pub struct ShortcutSettings {
     pub toggle_window: String,
@@ -89,4 +91,14 @@ pub enum UpdateChannel {
     Stable,
     Beta,
     Nightly,
+}
+
+/// Theme selection.
+#[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(rename_all = "lowercase")]
+pub enum Theme {
+    #[default]
+    System,
+    Light,
+    Dark,
 }
