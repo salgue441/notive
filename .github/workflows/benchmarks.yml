@@ -14,7 +14,7 @@ jobs:
     name: Rust Benchmarks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Install Rust
         uses: actions-rs/toolchain@v1
@@ -48,7 +48,7 @@ jobs:
     name: TypeScript Benchmarks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
